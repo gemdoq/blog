@@ -1,5 +1,5 @@
 import app from './app.js';
 
-app.listen('7000', () => {
+app.listen('3000', () => {
     console.log('hi');
 });
