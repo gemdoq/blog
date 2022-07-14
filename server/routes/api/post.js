@@ -6,7 +6,7 @@ import Post from "../../models/post.js"
 const router = express.Router()
 
 // api/post
-router.get('/', async(req, res)=> {
+router.get("/", async(req, res)=> {
     const postFindResult = await Post.find()
     console.log(postFindResult, "All Post Get")
     res.json(postFindResult)
@@ -15,7 +15,7 @@ router.get('/', async(req, res)=> {
 router.post("/", async(req, res, next) => {
     try {
         console.log(req, "req")
-        const {title, content, fileUrl, creator} = req.body
+        const {title, contents, fileUrl, creator} = req.body
         const newPost = await Post.create({
             title,
             contents,
@@ -27,5 +27,5 @@ router.post("/", async(req, res, next) => {
         console.log(e);
     }
 });
-
+// 모듈화 해서 뺀다.
 export default router;
