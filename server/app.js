@@ -6,7 +6,9 @@ import helmet from "helmet";
 import cors from "cors";
 
 //Routes
-import postsRoutes from "./routes/api/post.js";
+import postRoutes from "./routes/api/post.js";
+import userRoutes from "./routes/api/user.js";
+
 import morgan from "morgan";
 
 const app = express();
@@ -31,6 +33,7 @@ mongoose
 
 // use routers
 app.get("/");
-app.use("/api/post", postsRoutes);
+app.use("/api/post", postRoutes);
+app.use("/api/user", userRoutes);
 
 export default app;
