@@ -16,8 +16,9 @@ const router = express.Router()
 
 router.get("/", async(req, res)=> {
     try {
-        const users = await User.find()
-        if(!users) throw Error("No users")
+        const users = await User.find();
+        if(!users) throw Error("No users");
+        res.status(200).json(users);
     } catch (e) {
         console.log(e)
         res.status(400).json({msg: e.message})
