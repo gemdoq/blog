@@ -1,5 +1,5 @@
-import moment from "moment";
-import mongoose from "mongoose";
+import moment from 'moment';
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -17,33 +17,33 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["MainJuin", "SubJuin", "User"],
-        default: "User",
+        enum: ['MainJuin', 'SubJuin', 'User'],
+        default: 'User',
     },
     register_date: {
         type: Date,
-        default: moment().format("YYYY-MM-DD hh:mm:ss"),
+        default: moment().format('YYYY-MM-DD hh:mm:ss'),
     },
     comments: [
         {
             post_id: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "posts",
+                ref: 'posts',
             },
             comment_id: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "comments",
+                ref: 'comments',
             },
         },
     ],
     posts: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "posts",
+            ref: 'posts',
         },
     ],
 });
 
-const User = mongoose.model("user", UserSchema);
+const User = mongoose.model('user', UserSchema);
 
 export default User;

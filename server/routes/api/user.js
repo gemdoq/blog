@@ -1,12 +1,12 @@
-import express from "express";
-import bcrypt from "bcryptjs";
+import express from 'express';
+import bcrypt from 'bcryptjs';
 
-import jwt from "jsonwebtoken";
-import config from "../../config/index.js";
+import jwt from 'jsonwebtoken';
+import config from '../../config/index.js';
 const { JWT_SECRET } = config;
 
 // Model
-import User from "../../models/user.js";
+import User from '../../models/user.js';
 
 const router = express.Router()
 
@@ -14,10 +14,10 @@ const router = express.Router()
 // @desc        Get all user
 // @access      public
 
-router.get("/", async(req, res)=> {
+router.get('/', async(req, res)=> {
     try {
         const users = await User.find();
-        if(!users) throw Error("No users");
+        if(!users) throw Error('No users');
         res.status(200).json(users);
     } catch (e) {
         console.log(e)
@@ -29,19 +29,19 @@ router.get("/", async(req, res)=> {
 // @desc        Register user
 // @access      public
 
-router.post("/", (req, res)=>{
+router.post('/', (req, res)=>{
     console.log(req)
     const {name, email, password} = req.body // 구조분해문법
 
     // Simple validation
     if(!name || !email || !password) {
-        return res.status(400).json({msg: "모든 필드를 채워주세요"}) // 나중에 msg를 알림으로 띄우기 위해 json형태로 msg작성
+        return res.status(400).json({msg: '모든 필드를 채워주세요'}) // 나중에 msg를 알림으로 띄우기 위해 json형태로 msg작성
     }
 
     // Check for existing user
     User.findOne({email}).then((user)=>{
         if(user) 
-            return res.status(400).json({msg: "이미 가입된 유저가 존재합니다"})
+            return res.status(400).json({msg: '이미 가입된 유저가 존재합니다'})
         const newUser = new User({
             name, email, password
         })
@@ -54,7 +54,7 @@ router.post("/", (req, res)=>{
                     jwt.sign(
                         {id: user.id},
                         JWT_SECRET,
-                        {expiresIn: 3600},
+                        {expiresIn: 10000},
                         (err, token)=> {
                             if(err) throw err;
                             res.json({

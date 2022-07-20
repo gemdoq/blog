@@ -1,20 +1,21 @@
-import express from "express"
+import express from 'express';
 
 // Model
-import Post from "../../models/post.js"
+import Post from '../../models/post.js';
+import auth from '../../middleware/auth.js';
 
 const router = express.Router()
 
 // api/post
-router.get("/", async(req, res)=> {
+router.get('/', async(req, res)=> {
     const postFindResult = await Post.find()
-    console.log(postFindResult, "All Post Get")
+    console.log(postFindResult, 'All Post Get')
     res.json(postFindResult)
 })
 
-router.post("/", async(req, res, next) => {
+router.post('/', auth, async(req, res, next) => {
     try {
-        console.log(req, "req")
+        console.log(req, 'req')
         const {title, contents, fileUrl, creator} = req.body
         const newPost = await Post.create({
             title,
